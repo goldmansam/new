@@ -1,41 +1,41 @@
-// Create the scene — like a stage
+// Scene
 const scene = new THREE.Scene();
 
-// Create a camera — what the viewer sees
+// Camera
 const camera = new THREE.PerspectiveCamera(
-  75,                             // Field of view
-  window.innerWidth / window.innerHeight, // Aspect ratio
-  0.1,                            // Near clipping
-  1000                            // Far clipping
+  75, 
+  window.innerWidth / window.innerHeight, 
+  0.1, 
+  1000
 );
+camera.position.z = 3;
 
-// Create the renderer — draws the scene onto our canvas
+// Renderer
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
-renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.z = 5;
+renderer.setPixelRatio(window.devicePixelRatio);
 
-// Create a cube
-const geometry = new THREE.BoxGeometry(); // Cube shape
-const material = new THREE.MeshStandardMaterial({ color: 0xff00ff }); // Magenta
+// Cube
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshStandardMaterial({ color: 0x00ffcc });
 const cube = new THREE.Mesh(geometry, material);
-scene.add(cube); // Add cube to the scene
+scene.add(cube);
 
-// Add light so the cube is visible
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5, 5, 5);
-scene.add(pointLight);
+// Light
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(10, 10, 10);
+scene.add(light);
 
-// Animate the cube
+// Animate
 function animate() {
-  requestAnimationFrame(animate); // Keep running this loop
+  requestAnimationFrame(animate);
 
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
 
-  renderer.render(scene, camera); // Draw the scene through the camera
+  renderer.render(scene, camera);
 }
 
-animate(); // Start the animation
+animate();
